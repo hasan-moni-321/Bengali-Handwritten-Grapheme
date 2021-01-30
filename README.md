@@ -9,5 +9,6 @@ This is a multi-label multi-class classification. Where It have 3 level grapheme
 ## Accuracy and Loss
 
 |            |  Accuracy  |  Loss   |
+| ---------- | :---------:| ------: |
 |  Train     |  97.68     |  0.0123 |
 |  Valid     |  96.12     |  0.0132 |
