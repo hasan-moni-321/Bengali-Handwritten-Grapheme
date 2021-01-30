@@ -12,3 +12,20 @@ This is a multi-label multi-class classification. Where It have 3 level grapheme
 | ---------- | :---------:| ------: |
 |  Train     |  97.68     |  0.0123 |
 |  Valid     |  96.12     |  0.0132 |
+
+
+
+## Used Library
+numpy --
+pandas
+
+tqdm
+
+sklearn
+
+albumentations
+PIL
+
+torch
+
+pretrainedmodels
