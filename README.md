@@ -16,11 +16,11 @@ This is a multi-label multi-class classification. Where It have 3 level grapheme
 
 
 ## Used Library
-numpy
-pandas
-tqdm
-sklearn
-albumentations
-PIL
-torch
-pretrainedmodels
+numpy  
+pandas  
+tqdm  
+sklearn  
+albumentations  
+PIL  
+torch  
+pretrainedmodels  
