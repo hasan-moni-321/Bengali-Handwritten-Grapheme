@@ -6,6 +6,7 @@ This is a multi-label multi-class classification. Where It have 3 level grapheme
 
 
 
+
 ## Accuracy and Loss
 
 |            |  Accuracy  |  Loss   |
@@ -15,7 +16,9 @@ This is a multi-label multi-class classification. Where It have 3 level grapheme
 
 
 
+
 ## Used Library
+
 numpy  
 pandas  
 tqdm  
@@ -24,3 +27,22 @@ albumentations
 PIL  
 torch  
 pretrainedmodels  
+iterstrat
+
+
+ ## Used Special Classes  
+ 
+ MultilabelStratifiedKFold  
+ Custom_Dataset  
+ albumentations.Compose for image augmentation  
+ DataLoader  
+ Resnet34 model
+ Adam  
+ BCEWithLogitsLoss  
+ ReduceLROnPlateau  
+ EarlyStopping  
+ 
+ 
+ 
+ 
+ 
