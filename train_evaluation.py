@@ -21,14 +21,18 @@ def loss_fn(outputs, targets):
 
 def train(dataset, data_loader, model, device, optimizer, scheduler):
     model.train()
-    train_accuracy = []
-    acc = 0
-    train_losses = []
+    #train_accuracy = []
+    #acc = 0
+    #train_losses = []
+    #train_loss = 0
+    #counter = 0
+    total = 0
     train_loss = 0
-    counter = 0
+    correct = 0
+    
 
     for bi, data in tqdm(enumerate(data_loader), total=int(len(dataset)/ data_loader.batch_size)):
-        counter += 1 
+        #counter += 1 
         image = data['image']
         grapheme_root = data['grapheme_root']
         vowel_diacritic = data['vowel_diacritic']
@@ -49,37 +53,47 @@ def train(dataset, data_loader, model, device, optimizer, scheduler):
         scheduler.step()
 
         ##########
-        outputs = torch.sigmoid(outputs)
-        outputs[outputs >= 0.5] = 1
-        accuracy = accuracy_score(targets, outputs) 
-        acc += accuracy
+        #outputs = torch.sigmoid(outputs)
+        #outputs[outputs >= 0.5] = 1
+        #accuracy = accuracy_score(targets, outputs) 
+        #acc += accuracy
         ##########
+        #train_loss += loss.item() * image.size(0)
+        
+        
+        train_loss += loss.item()
+        _, predicted = outputs.max(1)
+        total += targets.size(0)
+        correct += predicted.eq(targets).sum().item() 
+        
+        
 
-        train_loss += loss.item() * image.size(0)
+    #train_loss = train_loss/ len(train_data.sampler)
+    #train_losses.append(train_loss)
+    
+    train_acc = correct / total 
+    train_loss = train_loss/total
 
-    train_acc = acc / counter
-    train_accuracy.append(train_acc) 
-
-    train_loss = train_loss/ len(train_data.sampler)
-    train_losses.append(train_loss)
-
-    print("Epoch: {}  \tTraining Acc: {:.6f}  \tTraining Loss: {:.6f}".format(epoch+1, train_accuracy, train_loss)) 
-    return train_accuracy, train_losses
+    print("Epoch: {}  \tTraining Acc: {:.6f}  \tTraining Loss: {:.6f}".format(epoch+1, train_acc, train_loss)) 
+    return train_acc, train_loss
 
 
 
 
 def evaluation(dataset, data_loader, model, device):
     model.eval()
-    valid_accuracy = []
-    valid_losses = []
+    #valid_accuracy = []
+    #valid_losses = []
+    #valid_loss = 0
+    #acc = 0
+    #counter = 0
+    total = 0
     valid_loss = 0
-
-    acc = 0
-    counter = 0
+    correct = 0
+    
 
     for bi, data in tqdm(enumerate(data_loader), total=int(len(dataset)/ data_loader.batch_size)):
-        counter = counter + 1
+        #counter = counter + 1
         image = data['image']
         grapheme_root = data['grapheme_root']
         vowel_diacritic = data['vowel_diacritic']
@@ -95,21 +109,27 @@ def evaluation(dataset, data_loader, model, device):
         loss = loss_fn(outputs, targets)
 
         ###############
-        outputs = torch.sigmoid(outputs)
-        outputs[outputs >= 0.5] = 1   
-        accuracy = accuracy_score(targets, outputs)
-        acc += accuracy
+        #outputs = torch.sigmoid(outputs)
+        #outputs[outputs >= 0.5] = 1   
+        #accuracy = accuracy_score(targets, outputs)
+        #acc += accuracy
         ###############
+        #valid_loss += loss.item() * image.size(0)
+        
+        valid_loss += loss.item()
+        _, predicted = outputs.max(1)
+        total += targets.size(0)
+        correct += predicted.eq(targets).sum().item()
+        
+        
 
-        valid_loss += loss.item() * image.size(0)
-
-    valid_acc = acc/ counter
-    valid_accuracy.append(valid_acc)
-
-    valid_loss = valid_loss / len(valid_data.sampler) 
-    valid_losses.append(valid_loss)
+    #valid_acc = acc/ counter
+    #valid_accuracy.append(valid_acc)
+    
+    valid_acc = correct/ total
+    valid_loss = valid_loss / total
 
 
-    print("Epoch: {} \tValidation Acc: {:.6f}  \tValidation Loss: {:.6f}".format(epoch+1, valid_accuracy, valid_loss))
-    return valid_accuracy, valid_losses
+    print("Epoch: {} \tValidation Acc: {:.6f}  \tValidation Loss: {:.6f}".format(epoch+1, valid_acc, valid_loss))
+    return valid_acc, valid_loss
 
