@@ -50,7 +50,7 @@ def train(dataset, data_loader, model, device, optimizer, scheduler):
 
         loss.backward()
         optimizer.step()
-        scheduler.step()
+        #scheduler.step()
 
         ##########
         #outputs = torch.sigmoid(outputs)
@@ -58,11 +58,11 @@ def train(dataset, data_loader, model, device, optimizer, scheduler):
         #accuracy = accuracy_score(targets, outputs) 
         #acc += accuracy
         ##########
-        #train_loss += loss.item() * image.size(0)
+        #train_loss += loss.item()
         
         
         train_loss += loss.item()
-        _, predicted = outputs.max(1)
+        _, predicted = outputs.max(1) # it will take only out. But model will give 3 output. correct it 
         total += targets.size(0)
         correct += predicted.eq(targets).sum().item() 
         
@@ -114,10 +114,10 @@ def evaluation(dataset, data_loader, model, device):
         #accuracy = accuracy_score(targets, outputs)
         #acc += accuracy
         ###############
-        #valid_loss += loss.item() * image.size(0)
+        #valid_loss += loss.item()
         
         valid_loss += loss.item()
-        _, predicted = outputs.max(1)
+        _, predicted = outputs.max(1) # It will take only out output. But model will give 3 output, so you need to correction. 
         total += targets.size(0)
         correct += predicted.eq(targets).sum().item()
         
