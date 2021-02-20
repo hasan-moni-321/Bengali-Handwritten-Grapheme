@@ -42,7 +42,12 @@ iterstrat
  ReduceLROnPlateau  
  EarlyStopping  
  
- 
+  ## Models
+  
+  1. model_file.py
+  2. model_file2.py
+  3. model_file3.py  and a different model for Tensorflow 
+  4. multi_layer_tensorflow_model.py
  
  
  
