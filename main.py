@@ -93,6 +93,9 @@ def main(fold):
         train_losses.append(train_loss)
         valid_accuracy.append(valid_acc)
         valid_losses.append(valid_loss) 
+        
+        # model saving in every epoch
+        torch.save(model.state_dict(), f"{base_model}_fold{number_epoch[epoch]}.bin")
 
         early_stopping(valid_loss, model) 
         if early_stopping.early_stop:
